@@ -16,13 +16,18 @@ public class TuxControllerScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		// Gets the horzontal input
-		float move = Input.GetAxis ("Horizontal");
+		float moveLeft = Input.GetAxis ("Horizontal");
 		// Updates the animator speed variable, allowing for a transfer of animations
-		anim.SetFloat ("Speed", Mathf.Abs (move));
-		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
-		if((move > 0 && !facingRight) || (move < 0 && facingRight)){
+		anim.SetFloat ("HorizSpeed", Mathf.Abs (moveLeft));
+		rigidbody2D.velocity = new Vector2(moveLeft * maxSpeed, rigidbody2D.velocity.y);
+		if((moveLeft > 0 && !facingRight) || (moveLeft < 0 && facingRight)){
 			Flip();
 		}
+
+		// Get the vertical velocity
+		float vertVel = Mathf.Abs (rigidbody2D.velocity.y);
+		anim.SetFloat ("VertSpeed", vertVel);
+
 	}
 		
 	void Flip(){
